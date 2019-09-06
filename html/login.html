@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="card w-50">
+                <h5 class="card-header text-center">Login</h5>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="username" class="form-control" id="email" aria-describedby="emailHelp"
+                            placeholder="Enter username">
+                        <small id="emailHelp" class="form-text text-muted">admin/admin are not valid credentials
+                            &#128537;</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                    </div>
+                    <button id="button-login" type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#button-login').click(function () {
+            var creds = {};
+
+            creds.username = $('#email').val();
+            creds.password = $('#password').val()
+
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost:{{.Port}}/login',
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(creds),
+                complete: function(result) {
+                    window.location.reload();
+                }
+            })
+        });   
+        });       
+    </script>
+</body>
+
+</html>

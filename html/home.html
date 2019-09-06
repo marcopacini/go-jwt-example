@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row h-100 justify-content-center align-items-center text-center">
+            <div class="card w-50">
+                <h5 class="card-header">Welcome {{.Username}}</h5>
+                <div class="card-body">
+                    <p class="card-text">Token expires at {{.ExpiresAt}}</p>
+                    <button id="button-refresh" type="button" class="btn btn-primary">Refresh</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#button-refresh').click(function() {
+                $.ajax({
+                    url: 'http://localhost:{{.Port}}/refresh',
+                    complete: function(result) {
+                        window.location.reload();
+                    }
+                })
+            })
+        })    
+    </script>
+</body>
+
+</html>
